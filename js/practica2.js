@@ -1,19 +1,20 @@
 class Refaccion {
-    contructor(descripcion, categoria, precio) {
-        this.descripcion = descripcion;
+    constructor(nombre, categoria, precio) {
+        this.nombre = nombre;
         this.categoria = categoria;
         this.precio = parseFloat(precio).toFixed(2);
     }
 }
 
 class GestorRefacciones {
-    contructor() {
+    constructor() {
         this.refacciones = [];
+        this.refaccion_A_Actualizar = null;
     }
 
-    agregarRefaccion(refacciones) {
-        this.refacciones.push(refacciones);
-        this.mostrarRefaccion();
+    agregarRefaccion(refaccion) {
+        this.refacciones.push(refaccion);
+        this.mostrarRefacciones();
     }
 
     eliminarRefaccion(index) {
@@ -21,50 +22,79 @@ class GestorRefacciones {
         this.mostrarRefacciones();
     }
 
+    editarRefaccion(index) {
+        this.refaccion_A_Actualizar = this.refacciones[index];
+        this.abrirModal(this.refaccion_A_Actualizar);
+    }
+
+    abrirModal(refaccion) {
+        const modal = document.getElementById('updateModal'); // Corregido ID aquí
+        modal.style.display = 'block';
+        document.getElementById('update-nombre').value = refaccion.nombre;
+        document.getElementById('update-categoria').value = refaccion.categoria;
+        document.getElementById('update-precio').value = refaccion.precio;
+    }
+
+    actualizarRefaccion(refaccion, nombre, categoria, precio) {
+        refaccion.nombre = nombre;
+        refaccion.categoria = categoria;
+        refaccion.precio = parseFloat(precio).toFixed(2);
+        this.mostrarRefacciones();
+    }
+
     mostrarRefacciones() {
-        const tbody = document.querySelector('#refacciones-Table tbody')
+        const tbody = document.querySelector('#refacciones-tbody');
         tbody.innerHTML = '';
         this.refacciones.forEach((refaccion, index) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${referencia.nombre}</td>
-              <td>${refaccion.categoria}</td>
-              <td>$${refaccion.precio}</td>
-              <td class="action">
-                <button onclick="gestor.eliminarRefaccion(${index})">Eliminar</button>
-              </td>
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${refaccion.nombre}</td>
+                <td>${refaccion.categoria}</td>
+                <td>${refaccion.precio}</td>
+                <td class="actions">
+                    <button onclick="gestor.editarRefaccion(${index})">Editar</button>
+                    <button onclick="gestor.eliminarRefaccion(${index})">Eliminar</button>
+                </td>
             `;
             tbody.appendChild(row);
         });
     }
 }
 
-//Instanciar gestor
 const gestor = new GestorRefacciones();
 
-
-//Manipular el formulario
-document.getElementById('reaccion-form').addEventListener('submit',function (e){
+document.getElementById('refaccion-form').addEventListener('submit', function (e) {
     e.preventDefault();
+
     const nombre = document.getElementById('nombre').value;
     const categoria = document.getElementById('categoria').value;
     const precio = document.getElementById('precio').value;
 
-    //Validar los datos
-    if (!nombre ||!categoria ||!precio) {
-        alert('Todos los campos son obligatorios');
-        return;
-    }
-
-    //Crear la refaccion
     const nuevaRefaccion = new Refaccion(nombre, categoria, precio);
-    
-    //Agregar la refaccion al gestor
     gestor.agregarRefaccion(nuevaRefaccion);
 
-    //Limpiar los inputs (LIMPIAR FORMULARIO)
-    /*document.getElementById('nombre').value = '';
-    document.getElementById('categoria').value = '';
-    document.getElementById('precio').value = '';*/
-    this.rest();
+    this.reset();
 });
+
+document.getElementById('reset-btn').addEventListener('click', function () {
+    gestor.refacciones = [];
+    gestor.mostrarRefacciones();
+});
+
+function closeModal() {
+    document.getElementById('updateModal').style.display = 'none'; // Corregido ID aquí
+}
+
+document.getElementById('updateRefaccion-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    if (gestor.refaccion_A_Actualizar) {
+        const nombre = document.getElementById('update-nombre').value;
+        const categoria = document.getElementById('update-categoria').value;
+        const precio = document.getElementById('update-precio').value;
+        gestor.actualizarRefaccion(gestor.refaccion_A_Actualizar, nombre, categoria, precio);
+        closeModal();
+    }
+});
+
+document.getElementById('close-modal').addEventListener('click', closeModal); // Agregado para cerrar el modal al hacer clic en el botón de cierre
