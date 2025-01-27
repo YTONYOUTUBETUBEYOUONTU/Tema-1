@@ -98,3 +98,4 @@ document.getElementById('updateRefaccion-form').addEventListener('submit', funct
 });
 
 document.getElementById('close-modal').addEventListener('click', closeModal); // Agregado para cerrar el modal al hacer clic en el botón de cierre
+
