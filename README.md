@@ -12,6 +12,7 @@ Esta práctica se enfoca en la creación de clases, funciones y constructores en
 * Impresión y clonación de objetos
 
 Código relevante
+
 `// Ejemplo de clase y constructor
 class Persona {
   constructor(nombre, edad) {
@@ -39,6 +40,7 @@ Funcionalidades
 * Eliminación de refacciones
 
 Código relevante
+
 `<!-- Ejemplo de formulario para crear refacciones -->
 <form id="formulario-refaccion">
   <label for="nombre">Nombre:</label>
@@ -66,6 +68,7 @@ Funcionalidades
 * Eliminación de refacciones utilizando AJAX
 
 Código relevante
+
 `// Ejemplo de código JavaScript para crear refacciones utilizando AJAX
 $('#btn-crear').click(function() {
   const nombre = $('#nombre').val();
