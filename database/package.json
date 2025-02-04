@@ -11,5 +11,9 @@
   },
   "devDependencies": {
     "serve": "^14.2.4"
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
