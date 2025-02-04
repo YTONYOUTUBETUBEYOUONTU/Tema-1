@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "json-server --watch db.json",
+   "start": "mkdir -p public && json-server --watch db.json --no-static --port 3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
