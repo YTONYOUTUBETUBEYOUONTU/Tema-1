@@ -1,19 +1,16 @@
 {
   "name": "database",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "json-server --watch db.json",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "json-server": "^1.0.0-beta.3"
-  },
-  "devDependencies": {
-    "serve": "^14.2.4"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "json-server": "^1.0.0-beta.3"
+  },
   "description": ""
 }
