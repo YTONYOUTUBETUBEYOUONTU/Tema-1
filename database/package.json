@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-      "start": "serve .",
+    "start": "serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,5 +12,8 @@
   "dependencies": {
     "json-server": "^1.0.0-beta.3"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
 }
