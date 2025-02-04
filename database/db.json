@@ -1,10 +1,10 @@
 {
   "refacciones": [
     {
-      "id": "1",
-      "nombre": "Frenos",
-      "categoria": "Mecánica",
-      "precio": 100
+      "id": "792c",
+      "nombre": "Juan",
+      "categoria": "Motor",
+      "precio": "100.52"
     }
   ]
 }
