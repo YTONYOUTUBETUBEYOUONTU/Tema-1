@@ -1,7 +1,12 @@
+const API_BASE_URL = "https://tema-1.onrender.com";
+
+// Ahora usa esta variable en tus fetch:
+fetch(`${API_BASE_URL}/refacciones`)
+
 // Función para cargar las refacciones a la tabla
 function cargarRefacciones() {
     $.ajax({
-      url: "http://localhost:3001/refacciones",
+      url: `${API_BASE_URL}/refacciones`,
       method: "GET",
       success: function (data) {
         const tbody = $("#refacciones-tbody");
@@ -39,7 +44,7 @@ function cargarRefacciones() {
       };
   
       $.ajax({
-        url: "http://localhost:3001/refacciones",
+        url: `${API_BASE_URL}/refacciones`,
         method: "POST",
         data: JSON.stringify(refaccion),
         contentType: "application/json",
@@ -58,7 +63,7 @@ function cargarRefacciones() {
   // Función para eliminar una refacción
   function eliminarRefaccion(id) {
     $.ajax({
-      url: `http://localhost:3001/refacciones/${id}`,
+      url: `${API_BASE_URL}/refacciones/${id}`,
       method: "DELETE",
       success: function () {
         cargarRefacciones();
@@ -83,7 +88,7 @@ function cargarRefacciones() {
         precio: $("#update-precio").val(),
       };
       $.ajax({
-        url: `http://localhost:3001/refacciones/${id}`,
+        url: `${API_BASE_URL}/refacciones/${id}`,
         method: "PATCH",
         data: JSON.stringify(updatedRefaccion),
         contentType: "application/json",
