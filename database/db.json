@@ -1,4 +1,11 @@
 {
+  "usuarios": [
+    {
+      "id": "1",
+      "username": "Admin",
+      "password": "123"
+    }
+  ],
   "refacciones": [
     {
       "id": "792c",

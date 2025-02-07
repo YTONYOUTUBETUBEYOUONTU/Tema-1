@@ -103,21 +103,28 @@ function cargarRefacciones() {
       });
     });
   }
-
   document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("login-form");
+
     if (loginForm) {
         loginForm.addEventListener("submit", function (e) {
             e.preventDefault();
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            if (username === "Admin" && password === "123") {
-                localStorage.setItem("loggedIn", "true");
-                window.location.href = "home.html";
-            } else {
-                document.getElementById("error-msg").textContent = "Usuario o contraseña incorrectos.";
-            }
+            fetch(`${API_BASE_URL}/usuarios`) // Se obtiene la lista de usuarios
+                .then(response => response.json())
+                .then(users => {
+                    const user = users.find(u => u.username === username && u.password === password);
+                    
+                    if (user) {
+                        localStorage.setItem("loggedIn", "true");
+                        window.location.href = "home.html";
+                    } else {
+                        document.getElementById("error-msg").textContent = "Usuario o contraseña incorrectos.";
+                    }
+                })
+                .catch(error => console.error("Error al verificar usuario:", error));
         });
     }
 
@@ -134,7 +141,6 @@ function cargarRefacciones() {
     }
 });
 
-  
   // Cargar las refacciones al iniciar la página
   $(document).on('pageinit', function () {
     cargarRefacciones();
