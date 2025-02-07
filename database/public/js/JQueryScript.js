@@ -1,8 +1,50 @@
 $(document).ready(function () {
-  // Función para cargar las refacciones a la tabla
+  const API_BASE_URL = "https://tema-1.onrender.com";
+
+  // ✅ LOGIN
+  $("#login-form").on("submit", function (e) {
+      e.preventDefault();
+      const username = $("#username").val();
+      const password = $("#password").val();
+
+      // Verificar usuario contra la base de datos
+      $.ajax({
+          url: `${API_BASE_URL}/usuarios`,
+          method: "GET",
+          success: function (usuarios) {
+              const user = usuarios.find(
+                  (u) => u.username.toLowerCase() === username.toLowerCase() && u.password === password
+              );
+
+              if (user) {
+                  localStorage.setItem("loggedIn", "true");
+                  window.location.href = "home.html";
+              } else {
+                  $("#error-msg").text("Usuario o contraseña incorrectos.");
+              }
+          },
+          error: function () {
+              console.error("Error al conectarse a la base de datos.");
+          },
+      });
+  });
+
+  // ✅ PROTECCIÓN DE LA PÁGINA home.html
+  if (window.location.pathname.includes("home.html")) {
+      if (localStorage.getItem("loggedIn") !== "true") {
+          window.location.href = "index.html";
+      }
+
+      $("#logout-btn").on("click", function () {
+          localStorage.removeItem("loggedIn");
+          window.location.href = "index.html";
+      });
+  }
+
+  // ✅ CARGAR REFACCIONES
   function cargarRefacciones() {
       $.ajax({
-          url: "https://tema-1.onrender.com/refacciones",
+          url: `${API_BASE_URL}/refacciones`,
           method: "GET",
           success: function (data) {
               const tbody = $("#refacciones-tbody");
@@ -29,18 +71,18 @@ $(document).ready(function () {
       });
   }
 
-  // Función para agregar una refacción a la BD
+  // ✅ AGREGAR REFACCIÓN
   $("#refaccion-form").on("submit", function (e) {
       e.preventDefault();
 
       const refaccion = {
-          nombre: $('#nombre').val(),
-          categoria: $('#categoria').val(),
-          precio: $('#precio').val(),
+          nombre: $("#nombre").val(),
+          categoria: $("#categoria").val(),
+          precio: $("#precio").val(),
       };
 
       $.ajax({
-          url: "https://tema-1.onrender.com/refacciones",
+          url: `${API_BASE_URL}/refacciones`,
           method: "POST",
           data: JSON.stringify(refaccion),
           contentType: "application/json",
@@ -55,10 +97,10 @@ $(document).ready(function () {
       });
   });
 
-  // Función para eliminar una refacción
+  // ✅ ELIMINAR REFACCIÓN
   window.eliminarRefaccion = function (id) {
       $.ajax({
-          url: `https://tema-1.onrender.com/refacciones/${id}`,
+          url: `${API_BASE_URL}/refacciones/${id}`,
           method: "DELETE",
           success: function () {
               cargarRefacciones();
@@ -69,21 +111,22 @@ $(document).ready(function () {
       });
   };
 
-  // Función para mostrar el modal con la información de la refacción
+  // ✅ EDITAR REFACCIÓN
   window.mostrarModal = function (id, nombre, categoria, precio) {
       $("#update-nombre").val(nombre);
       $("#update-categoria").val(categoria);
       $("#update-precio").val(precio);
 
-      $('#updateRefaccion-form').off('submit').on('submit', function (e) {
+      $("#updateRefaccion-form").off("submit").on("submit", function (e) {
           e.preventDefault();
           const updatedRefaccion = {
               nombre: $("#update-nombre").val(),
               categoria: $("#update-categoria").val(),
               precio: $("#update-precio").val(),
           };
+
           $.ajax({
-              url: `https://tema-1.onrender.com/refacciones/${id}`,
+              url: `${API_BASE_URL}/refacciones/${id}`,
               method: "PATCH",
               data: JSON.stringify(updatedRefaccion),
               contentType: "application/json",
@@ -98,6 +141,8 @@ $(document).ready(function () {
       });
   };
 
-  // Cargar las refacciones al iniciar la página
-  cargarRefacciones();
+  // ✅ CARGAR REFACCIONES AL INICIAR
+  if ($("#refacciones-tbody").length) {
+      cargarRefacciones();
+  }
 });
