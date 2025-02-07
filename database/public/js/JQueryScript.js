@@ -103,6 +103,37 @@ function cargarRefacciones() {
       });
     });
   }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("login-form");
+    if (loginForm) {
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === "Admin" && password === "123") {
+                localStorage.setItem("loggedIn", "true");
+                window.location.href = "home.html";
+            } else {
+                document.getElementById("error-msg").textContent = "Usuario o contraseña incorrectos.";
+            }
+        });
+    }
+
+    // Proteger la página de refacciones
+    if (window.location.pathname.includes("home.html")) {
+        if (localStorage.getItem("loggedIn") !== "true") {
+            window.location.href = "index.html";
+        }
+
+        document.getElementById("logout-btn").addEventListener("click", function () {
+            localStorage.removeItem("loggedIn");
+            window.location.href = "index.html";
+        });
+    }
+});
+
   
   // Cargar las refacciones al iniciar la página
   $(document).on('pageinit', function () {

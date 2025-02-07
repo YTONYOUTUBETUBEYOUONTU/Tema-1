@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Refacciones</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+    <header>
+        <h1>Gestión de Refacciones</h1>
+        <button id="logout-btn">Cerrar Sesión</button>
+    </header>
+
+    <section>
+        <h2>Agregar Refacción</h2>
+        <form id="refaccion-form">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required />
+
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" required>
+                <option value="Motor">Motor</option>
+                <option value="Transmisión">Transmisión</option>
+                <option value="Frenos">Frenos</option>
+            </select>
+
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" step="0.01" required />
+
+            <button type="submit" class="kawaii-button">Agregar</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Lista de Refacciones</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="refacciones-tbody"></tbody>
+        </table>
+    </section>
+
+    <script src="js/JQueryScript.js"></script>
+</body>
+</html>

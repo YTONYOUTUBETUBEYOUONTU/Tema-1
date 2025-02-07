@@ -1,89 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="es">
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestión de refacciones</title>
-    <link
-      rel="stylesheet"
-      href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"
-    />
+    <title>Login - Gestión de Refacciones</title>
     <link rel="stylesheet" href="css/styles.css" />
-  </head>
-  <body>
-    <div data-role="page" id="home-page">
-      <div data-role="header">
-        <h1>Gestión de refacciones para motocicletas</h1>
-      </div>
-      <div data-role="content">
-        <!--Formulario para agregar refacciones-->
-        <section class="form-section">
-          <h2>Agregar refacción</h2>
-          <form id="refaccion-form">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required />
-            <label for="categoria">Categoría:</label>
-            <select id="categoria" name="categoria" required>
-              <option value="">Seleccione una categoría</option>
-              <option value="Motor">Motor</option>
-              <option value="Transmision">Transmisión</option>
-              <option value="Frenos">Frenos</option>
-            </select>
-            <label for="precio">Precio:</label>
-            <input type="number" step="0.01" id="precio" name="precio" required />
-            <button type="submit" data-role="button" data-theme="b">Agregar refacción</button>
-          </form>
-        </section>
-        <!--Listado de refacciones-->
-        <section class="list-section">
-          <h2>Listado de refacciones</h2>
-          <table id="refacciones-table" data-role="table" class="ui-responsive">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="refacciones-tbody"></tbody>
-          </table>
-        </section>
-        <!--Botón para resetear la lista de refacciones-->
-        <button id="reset-btn" data-role="button" data-theme="b" data-inline="true">Limpiar Lista</button>
-        <!--Modal para editar refacciones-->
-        <div data-role="popup" id="updateModal" data-overlay-theme="b" class="ui-content">
-          <div class="modal-content">
-            <span id="close-modal" class="close">&times;</span>
-            <h2>Editar refacción</h2>
-            <form id="updateRefaccion-form">
-              <label for="update-nombre">Nombre:</label>
-              <input type="text" id="update-nombre" name="update-nombre" required />
-              <label for="update-categoria">Categoría:</label>
-              <select id="update-categoria" name="update-categoria" required>
-                <option value="">Seleccione una categoría</option>
-                <option value="Motor">Motor</option>
-                <option value="Transmision">Transmisión</option>
-                <option value="Frenos">Frenos</option>
-              </select>
-              <label for="update-precio">Precio:</label>
-              <input type="number" step="0.01" id="update-precio" name="update-precio" required />
-              <button type="submit">Guardar cambios</button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div data-role="footer">
-        <h1>Gestión de refacciones</h1>
-      </div>
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <h1 class="kawaii-title">🌸 Bienvenido 🌸</h1>
+        <form id="login-form">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="username" required />
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required />
+
+            <button type="submit" class="kawaii-button">Ingresar</button>
+        </form>
+        <p id="error-msg" class="error-msg"></p>
     </div>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script>
-      $(document).on("pagecreate", "#home-page", function () {
-        console.log("Página cargada correctamente.");
-      });
-    </script>
+
     <script src="js/JQueryScript.js"></script>
-  </body>
+</body>
 </html>
