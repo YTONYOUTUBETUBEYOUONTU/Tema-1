@@ -2,7 +2,7 @@ $(document).ready(function () {
   // Función para cargar las refacciones a la tabla
   function cargarRefacciones() {
       $.ajax({
-          url: "http://localhost:3001/refacciones",
+          url: "https://tema-1.onrender.com/refacciones",
           method: "GET",
           success: function (data) {
               const tbody = $("#refacciones-tbody");
@@ -40,7 +40,7 @@ $(document).ready(function () {
       };
 
       $.ajax({
-          url: "http://localhost:3001/refacciones",
+          url: "https://tema-1.onrender.com/refacciones",
           method: "POST",
           data: JSON.stringify(refaccion),
           contentType: "application/json",
@@ -58,7 +58,7 @@ $(document).ready(function () {
   // Función para eliminar una refacción
   window.eliminarRefaccion = function (id) {
       $.ajax({
-          url: `http://localhost:3001/refacciones/${id}`,
+          url: `https://tema-1.onrender.com/refacciones/${id}`,
           method: "DELETE",
           success: function () {
               cargarRefacciones();
@@ -83,7 +83,7 @@ $(document).ready(function () {
               precio: $("#update-precio").val(),
           };
           $.ajax({
-              url: `http://localhost:3001/refacciones/${id}`,
+              url: `https://tema-1.onrender.com/refacciones/${id}`,
               method: "PATCH",
               data: JSON.stringify(updatedRefaccion),
               contentType: "application/json",
