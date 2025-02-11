@@ -1,17 +1,30 @@
 {
-  "usuarios": [
+  "Usuarios": [
     {
       "id": "1",
       "username": "Admin",
       "password": "123"
     }
   ],
+  "categorias": [
+    {
+      "id": "1",
+      "nombre": "Frenos",
+      "descripcion": "Refacciones para frenos"
+    }
+  ],
   "refacciones": [
     {
       "id": "792c",
       "nombre": "Liquido",
-      "categoria": "Frenos",
-      "precio": "100.52"
+      "categoria_id": "1",
+      "categoria_nombre": "Frenos",
+      "precio": "100.52",
+      "stock_disponible": 10,
+      "proveedor": "Don Peru",
+      "ubicacion_almacen": "Peru",
+      "estado_disponibilidad": "Disponible",
+      "historial_precios": [90.00, 95.00, 100.52]
     }
   ]
 }

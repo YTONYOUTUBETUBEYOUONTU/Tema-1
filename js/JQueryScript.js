@@ -1,6 +1,7 @@
 // Función para cargar las refacciones a la tabla
+const API_BASE_URL = "https://tema-1.onrender.com";
+
 function cargarRefacciones() {
-  const API_BASE_URL = "https://tema-1.onrender.com";
     $.ajax({
       url: `${API_BASE_URL}/refacciones`,
       method: "GET",
@@ -13,7 +14,11 @@ function cargarRefacciones() {
                   <tr>
                       <td>${refaccion.nombre}</td>
                       <td>${refaccion.categoria}</td>
-                      <td>${refaccion.precio}</td>
+                      <td>${refaccion.stock}</td>
+                      <td>${refaccion.proveedor}</td>
+                      <td>${refaccion.ubicacion_almacen}</td>
+                      <td>${refaccion.estado_disponible}</td>
+                      <td>${refaccion.historial_precios}</td>
                       <td>
                           <a href="#updateModal" data-rel="popup" data-transition="pop" onclick="mostrarModal('${refaccion.id}', '${refaccion.nombre}', '${refaccion.categoria}', '${refaccion.precio}')">Editar</a>
                           <a href="#" onclick="eliminarRefaccion('${refaccion.id}')">Eliminar</a>
@@ -58,6 +63,7 @@ function cargarRefacciones() {
   
   // Función para eliminar una refacción
   function eliminarRefaccion(id) {
+   $.mobile.changePage( "#" );
     $.ajax({
       url: `${API_BASE_URL}/refacciones/${id}`,
       method: "DELETE",
