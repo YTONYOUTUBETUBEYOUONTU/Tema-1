@@ -1,89 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestión de refacciones</title>
-    <link
-      rel="stylesheet"
-      href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"
-    />
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
-  <body>
-    <div data-role="page" id="home-page">
-      <div data-role="header">
-        <h1>Gestión de refacciones para motocicletas</h1>
-      </div>
-      <div data-role="content">
-        <!--Formulario para agregar refacciones-->
-        <section class="form-section">
-          <h2>Agregar refacción</h2>
-          <form id="refaccion-form">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required />
-            <label for="categoria">Categoría:</label>
-            <select id="categoria" name="categoria" required>
-              <option value="">Seleccione una categoría</option>
-              <option value="Motor">Motor</option>
-              <option value="Transmision">Transmisión</option>
-              <option value="Frenos">Frenos</option>
-            </select>
-            <label for="precio">Precio:</label>
-            <input type="number" step="0.01" id="precio" name="precio" required />
-            <button type="submit" data-role="button" data-theme="b">Agregar refacción</button>
-          </form>
-        </section>
-        <!--Listado de refacciones-->
-        <section class="list-section">
-          <h2>Listado de refacciones</h2>
-          <table id="refacciones-table" data-role="table" class="ui-responsive">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="refacciones-tbody"></tbody>
-          </table>
-        </section>
-        <!--Botón para resetear la lista de refacciones-->
-        <button id="reset-btn" data-role="button" data-theme="b" data-inline="true">Limpiar Lista</button>
-        <!--Modal para editar refacciones-->
-        <div data-role="popup" id="updateModal" data-overlay-theme="b" class="ui-content">
-          <div class="modal-content">
-            <span id="close-modal" class="close">&times;</span>
-            <h2>Editar refacción</h2>
-            <form id="updateRefaccion-form">
-              <label for="update-nombre">Nombre:</label>
-              <input type="text" id="update-nombre" name="update-nombre" required />
-              <label for="update-categoria">Categoría:</label>
-              <select id="update-categoria" name="update-categoria" required>
-                <option value="">Seleccione una categoría</option>
-                <option value="Motor">Motor</option>
-                <option value="Transmision">Transmisión</option>
-                <option value="Frenos">Frenos</option>
-              </select>
-              <label for="update-precio">Precio:</label>
-              <input type="number" step="0.01" id="update-precio" name="update-precio" required />
-              <button type="submit">Guardar cambios</button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div data-role="footer">
-        <h1>Gestión de refacciones</h1>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de Refacciones</title>
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Página principal -->
+  <div data-role="page" id="home-page">
+    <div data-role="header">
+      <h1>Gestión de Refacciones para Motocicletas</h1>
     </div>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script>
-      $(document).on("pagecreate", "#home-page", function () {
-        console.log("Página cargada correctamente.");
-      });
-    </script>
-    <script src="js/JQueryScript.js"></script>
-  </body>
+    <div data-role="content">
+
+      <!-- Botones para agregar -->
+      <button id="agregar-categoria-btn" data-role="button" data-theme="b" onclick="$.mobile.changePage('#add-category-page')">Agregar Categoría</button>
+      <button id="agregar-refaccion-btn" data-role="button" data-theme="b" onclick="$.mobile.changePage('#add-refaccion-page')">Agregar Refacción</button>
+
+      <!-- Filtro por categoría -->
+      <section class="filter-section">
+        <h2>Filtrar por Categoría</h2>
+        <select id="filtro-categoria">
+          <option value="">Todas las Categorías</option>
+        </select>
+      </section>
+
+      <!-- Listado de refacciones -->
+      <section class="list-section">
+        <h2>Listado de Refacciones</h2>
+        <table id="refacciones-table" data-role="table" class="ui-responsive">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Stock Disponible</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="refacciones-tbody"></tbody>
+        </table>
+      </section>
+
+      <!-- Listado de categorías -->
+      <section class="list-section">
+        <h2>Listado de Categorías</h2>
+        <table id="categorias-table" data-role="table" class="ui-responsive">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+            </tr>
+          </thead>
+          <tbody id="categorias-tbody"></tbody>
+        </table>
+      </section>
+
+    </div>
+    <div data-role="footer">
+      <h1>Gestión de Refacciones</h1>
+    </div>
+  </div>
+
+  <!-- Página para agregar categoría -->
+  <div data-role="page" id="add-category-page">
+    <div data-role="header">
+      <h1>Agregar Categoría</h1>
+    </div>
+    <div data-role="content">
+      <form id="categoria-form">
+        <label for="nombre-categoria">Nombre de la Categoría:</label>
+        <input type="text" id="nombre-categoria" name="nombre" required />
+
+        <button type="submit" data-role="button" data-theme="b">Agregar Categoría</button>
+        <button type="button" data-role="button" data-theme="a" onclick="$.mobile.changePage('#home-page')">Regresar al Inicio</button>
+      </form>
+    </div>
+    <div data-role="footer">
+      <h1>Gestión de Refacciones</h1>
+    </div>
+  </div>
+
+  <!-- Página para agregar refacción -->
+  <div data-role="page" id="add-refaccion-page">
+    <div data-role="header">
+      <h1>Agregar Refacción</h1>
+    </div>
+    <div data-role="content">
+      <form id="refaccion-form">
+        <label for="nombre-refaccion">Nombre:</label>
+        <input type="text" id="nombre-refaccion" name="nombre" required />
+
+        <label for="categoria-refaccion">Categoría:</label>
+        <select id="categoria-refaccion" name="categoria" required></select>
+
+        <label for="precio-refaccion">Precio:</label>
+        <input type="number" id="precio-refaccion" name="precio" step="0.01" required />
+
+        <label for="stock-refaccion">Stock Disponible:</label>
+        <input type="number" id="stock-refaccion" name="stock" required />
+
+        <button type="submit" data-role="button" data-theme="b">Agregar Refacción</button>
+        <button type="button" data-role="button" data-theme="a" onclick="$.mobile.changePage('#home-page')">Regresar al Inicio</button>
+      </form>
+    </div>
+    <div data-role="footer">
+      <h1>Gestión de Refacciones</h1>
+    </div>
+  </div>
+
+  <!-- Modal para editar refacción -->
+  <div data-role="popup" id="update-modal" data-overlay-theme="b" data-theme="a" data-dismissible="false" data-transition="pop">
+    <div data-role="header">
+      <h1>Editar Refacción</h1>
+    </div>
+    <div data-role="content">
+      <form id="updateRefaccion-form">
+        <label for="update-nombre">Nombre:</label>
+        <input type="text" id="update-nombre" name="nombre" required />
+
+        <label for="update-categoria">Categoría:</label>
+        <select id="update-categoria" name="categoria" required></select>
+
+        <label for="update-precio">Precio:</label>
+        <input type="number" id="update-precio" name="precio" step="0.01" required />
+
+        <label for="update-stock">Stock Disponible:</label>
+        <input type="number" id="update-stock" name="stock" required />
+
+        <button type="submit" data-role="button" data-theme="b">Actualizar Refacción</button>
+        <button type="button" data-role="button" data-theme="a" onclick="$('#update-modal').popup('close')">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="js/JQueryScript.js"></script>
+</body>
 </html>

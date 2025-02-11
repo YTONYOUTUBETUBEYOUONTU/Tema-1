@@ -101,6 +101,15 @@ table th {
   animation: fadeIn 0.3s; /* Animación al mostrar */
 }
 
+.agotado {
+  background-color: #ffcccc;
+  font-weight: bold;
+}
+.stock-bajo {
+  background-color: #fff3cd;
+  font-weight: bold;
+}
+
 /* Estilo del botón para cerrar el modal */
 .close {
   color: #aaa;
