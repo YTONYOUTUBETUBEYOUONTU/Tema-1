@@ -1,7 +1,4 @@
-// Configuración de la API
 const API_BASE_URL = "https://tema-1.onrender.com";
-
-// Función para cargar refacciones
 function cargarRefacciones(filtroCategoria = "") {
   $.ajax({
     url: `${API_BASE_URL}/refacciones`,
@@ -44,8 +41,6 @@ function cargarRefacciones(filtroCategoria = "") {
     }
   });
 }
-
-// Función para cargar categorías
 function cargarCategorias(callback) {
   $.ajax({
     url: `${API_BASE_URL}/categorias`,
@@ -71,8 +66,6 @@ function cargarCategorias(callback) {
     }
   });
 }
-
-// Función para agregar una nueva categoría
 $("#categoria-form").on("submit", function (e) {
   e.preventDefault();
   const categoria = { nombre: $('#nombre-categoria').val() };
@@ -92,8 +85,6 @@ $("#categoria-form").on("submit", function (e) {
     }
   });
 });
-
-// Función para agregar una refacción
 $("#refaccion-form").on("submit", function (e) {
   e.preventDefault();
 
@@ -119,20 +110,14 @@ $("#refaccion-form").on("submit", function (e) {
     }
   });
 });
-
-// Filtro por categoría
 $("#filtro-categoria").on("change", function () {
   const filtro = $(this).val();
   cargarRefacciones(filtro);
 });
-
-// Cargar datos al iniciar la página
 $(document).on('pageinit', function () {
   cargarRefacciones();
   cargarCategorias();
 });
-
-// ✅ ELIMINAR REFACCIÓN
 window.eliminarRefaccion = function (id) {
   if (confirm("¿Estás seguro de que deseas eliminar esta refacción?")) {
     $.ajax({
@@ -148,8 +133,6 @@ window.eliminarRefaccion = function (id) {
     });
   }
 };
-
-// ✅ EDITAR REFACCIÓN
 window.mostrarModal = function (id, nombre, categoria, precio, stock) {
   cargarCategorias(function() {
     $("#update-nombre").val(nombre);
@@ -196,14 +179,10 @@ window.mostrarModal = function (id, nombre, categoria, precio, stock) {
     });
   });
 };
-
-// Filtro por categoría
 $("#filtro-categoria").on("change", function () {
   const filtro = $(this).val();
   cargarRefacciones(filtro);
 });
-
-// Cargar datos al iniciar la página
 $(document).on('pageinit', function () {
   cargarRefacciones();
   cargarCategorias();
