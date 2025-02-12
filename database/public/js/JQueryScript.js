@@ -154,4 +154,3 @@ $(document).ready(function () {
     // Cargar refacciones al iniciar
     cargarRefacciones();
   });
-  
