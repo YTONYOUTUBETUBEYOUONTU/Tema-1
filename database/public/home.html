@@ -6,6 +6,7 @@
     <title>Gestión de Refacciones</title>
     <link rel="stylesheet" href="css/styles.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/JQueryScript.js" defer></script>
 </head>
 <body>
     <header>
@@ -13,7 +14,26 @@
         <button id="logout-btn">Cerrar Sesión</button>
     </header>
 
-    <section>
+    <!-- Página principal -->
+    <section id="main-page">
+        <button class="add-btn" id="add-refaccion-btn">Agregar Nueva Refacción</button>
+
+        <h2>Lista de Refacciones</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="refacciones-tbody"></tbody>
+        </table>
+    </section>
+
+    <!-- Página para agregar refacción -->
+    <section id="add-page" style="display: none;">
         <h2>Agregar Refacción</h2>
         <form id="refaccion-form">
             <label for="nombre">Nombre:</label>
@@ -29,25 +49,63 @@
             <label for="precio">Precio:</label>
             <input type="number" id="precio" step="0.01" required />
 
-            <button type="submit" class="kawaii-button">Agregar</button>
+            <button type="submit" class="add-btn">Guardar</button>
+            <button type="button" class="add-btn" id="cancel-btn">Cancelar</button>
         </form>
     </section>
 
-    <section>
-        <h2>Lista de Refacciones</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Categoría</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="refacciones-tbody"></tbody>
-        </table>
+    <!-- Página para editar refacción -->
+    <section id="edit-page" style="display: none;">
+        <h2>Editar Refacción</h2>
+        <form id="updateRefaccion-form">
+            <input type="hidden" id="edit-id" />
+            <label for="update-nombre">Nombre:</label>
+            <input type="text" id="update-nombre" required />
+
+            <label for="update-categoria">Categoría:</label>
+            <select id="update-categoria" required>
+                <option value="Motor">Motor</option>
+                <option value="Transmisión">Transmisión</option>
+                <option value="Frenos">Frenos</option>
+            </select>
+
+            <label for="update-precio">Precio:</label>
+            <input type="number" id="update-precio" step="0.01" required />
+
+            <button type="submit" class="edit-btn">Actualizar</button>
+            <button type="button" class="edit-btn" id="cancel-edit-btn">Cancelar</button>
+        </form>
     </section>
 
-    <script src="js/JQueryScript.js"></script>
+    <script>
+     $(document).ready(function () {
+            $("#add-refaccion-btn").on("click", function () {
+                $("#main-page").hide();
+                $("#add-page").show();
+            });
+
+            $("#cancel-btn, #cancel-edit-btn").on("click", function () {
+                $("#add-page, #edit-page").hide();
+                $("#main-page").show();
+            });
+
+            // Redirigir a la lista después de guardar
+            $("#refaccion-form").on("submit", function () {
+                $("#add-page").hide();
+                $("#main-page").show();
+            });
+
+            // Mostrar formulario de edición
+            window.mostrarModal = function (id, nombre, categoria, precio) {
+                $("#edit-id").val(id);
+                $("#update-nombre").val(nombre);
+                $("#update-categoria").val(categoria);
+                $("#update-precio").val(precio);
+
+                $("#main-page").hide();
+                $("#edit-page").show();
+            };
+        });
+    </script>
 </body>
 </html>
